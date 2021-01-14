@@ -35,7 +35,7 @@ def respond():
        
        # print the welcoming message
        bot_welcome = """
-       Welcome to Jarvis bot, please enter a name and the bot will reply with an avatar for your name.
+       Welcome to MAV bot, please enter a name and the bot will reply with an avatar for your name.
        """
        # send the welcoming message
        bot.sendChatAction(chat_id=chat_id, action="typing")
