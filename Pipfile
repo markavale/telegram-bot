@@ -10,6 +10,7 @@ flask = "*"
 python-telegram-bot = "*"
 requests = "*"
 gunicorn = "*"
+python-decouple = "*"
 
 [requires]
 python_version = "3.8"

@@ -3,11 +3,16 @@ from time import sleep
 from flask import Flask, request
 import telegram
 from telebot.ai import generate_smart_reply
-from credentials import bot_token, bot_user_name,URL
+from decouple import config
+# from credentials import bot_token, bot_user_name,URL
 global bot
 global TOKEN
 TOKEN = bot_token
 bot = telegram.Bot(token=TOKEN)
+
+bot_token = config('bot_token')
+bot_user_name = config('bot_user_name')
+URL = config('URL')
 
 app = Flask(__name__)
 
