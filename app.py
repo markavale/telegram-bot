@@ -44,9 +44,10 @@ def respond():
 
 
    else:
+       reply = generate_smart_reply(text)
+       bot.sendMessage(chat_id=chat_id, text=reply, reply_to_message_id=msg_id)
        try:
-           reply = generate_smart_reply(text)
-           bot.sendMessage(chat_id=chat_id, text=reply, reply_to_message_id=msg_id)
+           
            # clear the message we got from any non alphabets
            text = re.sub(r"\W", "_", text)
            print(text)
