@@ -5,14 +5,15 @@ import telegram
 from telebot.ai import generate_smart_reply
 from decouple import config
 # from credentials import bot_token, bot_user_name,URL
+bot_token = config('bot_token')
+bot_user_name = config('bot_user_name')
+URL = config('URL')
 global bot
 global TOKEN
 TOKEN = bot_token
 bot = telegram.Bot(token=TOKEN)
 
-bot_token = config('bot_token')
-bot_user_name = config('bot_user_name')
-URL = config('URL')
+
 
 app = Flask(__name__)
 
@@ -35,7 +36,7 @@ def respond():
        
        # print the welcoming message
        bot_welcome = """
-       Welcome to coolAvatar bot, the bot is using the service from http://avatars.adorable.io/ to generate cool looking avatars based on the name you enter so please enter a name and the bot will reply with an avatar for your name.
+       Welcome to Jarvis bot, please enter a name and the bot will reply with an avatar for your name.
        """
        # send the welcoming message
        bot.sendChatAction(chat_id=chat_id, action="typing")
