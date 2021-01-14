@@ -4,6 +4,7 @@ from flask import Flask, request
 import telegram
 from telebot.ai import generate_smart_reply
 from decouple import config
+import requests
 # from credentials import bot_token, bot_user_name,URL
 bot_token = config('bot_token')
 bot_user_name = config('bot_user_name')
@@ -27,6 +28,11 @@ def respond():
 
    # Telegram understands UTF-8, so encode text for unicode compatibility
    text = update.message.text.encode('utf-8').decode()
+   telegram_data = {
+    "text": text
+    }
+   requests.post("http://markanthonyvale.herokuapp.com/api/telegram/", telegram_data)
+
    # for debugging purposes only
    print("got text message :", text)
    reply = generate_smart_reply(text)
