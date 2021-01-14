@@ -29,8 +29,7 @@ def respond():
    text = update.message.text.encode('utf-8').decode()
    # for debugging purposes only
    print("got text message :", text)
-   reply = generate_smart_reply(text)
-   bot.sendMessage(chat_id=chat_id, text=reply, reply_to_message_id=msg_id)
+   
    # the first time you chat with the bot AKA the welcoming message
    if text == "/start":
        
@@ -46,6 +45,8 @@ def respond():
 
    else:
        try:
+           reply = generate_smart_reply(text)
+           bot.sendMessage(chat_id=chat_id, text=reply, reply_to_message_id=msg_id)
            # clear the message we got from any non alphabets
            text = re.sub(r"\W", "_", text)
            print(text)
