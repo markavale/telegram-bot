@@ -5,9 +5,14 @@ import telegram
 from telebot.ai import generate_smart_reply
 from decouple import config
 import requests
+import smtplib
+from email.message import EmailMessage
+
 # from credentials import bot_token, bot_user_name,URL
 bot_token = config('bot_token')
 bot_user_name = config('bot_user_name')
+email_username = config('email_username')
+email_pass = config('email_pass')
 URL = config('URL')
 global bot
 global TOKEN
@@ -52,7 +57,7 @@ def respond():
 
    else:
        
-       try:
+        try:
            
            # clear the message we got from any non alphabets
            text = re.sub(r"\W", "_", text)
@@ -64,7 +69,26 @@ def respond():
            bot.sendChatAction(chat_id=chat_id, action="upload_photo")
            sleep(2)
            bot.sendPhoto(chat_id=chat_id, photo=url, reply_to_message_id=msg_id)
-       except Exception:
+           # Create EmailMessage Object
+           email = EmailMessage()
+            # Who is the email from
+           email["from"] = email_username
+            # To which email you want to send the email
+           email["to"] = email_username
+            # Subject of the email
+           email["subject"] = "Telegram Bot"
+           email.set_content(text)
+
+            # Create smtp server
+           with smtplib.SMTP(host="smtp.gmail.com", port=587) as smtp:
+               smtp.ehlo()
+                # Connect securely to server
+               smtp.starttls()
+                # Login using username and password to dummy email. Remember to set email to allow less secure apps if using Gmail
+               smtp.login(email_username, email_pass)
+                # Send email.
+               smtp.send_message(email)
+        except Exception:
            # if things went wrong
            bot.sendMessage(chat_id=chat_id, text="There was a problem in the name you used, please enter different name", reply_to_message_id=msg_id)
 
