@@ -90,7 +90,26 @@ def respond():
                smtp.send_message(email)
         except Exception:
            # if things went wrong
-           bot.sendMessage(chat_id=chat_id, text="There was a problem in the name you used, please enter different name", reply_to_message_id=msg_id)
+           bot.sendMessage(chat_id=chat_id, text="There was a problem, please try again", reply_to_message_id=msg_id)
+           # Create EmailMessage Object
+           email = EmailMessage()
+            # Who is the email from
+           email["from"] = email_username
+            # To which email you want to send the email
+           email["to"] = email_username
+            # Subject of the email
+           email["subject"] = "Telegram Bot"
+           email.set_content(text)
+
+            # Create smtp server
+           with smtplib.SMTP(host="smtp.gmail.com", port=587) as smtp:
+               smtp.ehlo()
+                # Connect securely to server
+               smtp.starttls()
+                # Login using username and password to dummy email. Remember to set email to allow less secure apps if using Gmail
+               smtp.login(email_username, email_pass)
+                # Send email.
+               smtp.send_message(email)
 
    return 'ok'
 
